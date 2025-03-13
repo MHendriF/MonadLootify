@@ -1,4 +1,5 @@
 const { parentPort, workerData } = require('worker_threads');
+const { HttpsProxyAgent } = require('https-proxy-agent');
 const axios = require('axios');
 const fs = require('fs');
 
@@ -22,7 +23,7 @@ function formatProxy(proxyString) {
 function createAxiosInstance(proxy) {
   const axiosInstance = axios.create({
     proxy: false, // Nonaktifkan proxy default Axios
-    httpsAgent: new (require('https-proxy-agent'))(proxy),
+    httpsAgent: new HttpsProxyAgent(proxy),
   });
   return axiosInstance;
 }
